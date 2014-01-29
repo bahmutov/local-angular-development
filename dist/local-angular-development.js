@@ -27,6 +27,10 @@ angular.module('local-angular-development', ['names']);
   m.directive('names', directive);
 
   function controller($scope, $http) {
-    $scope.names = ['one', 'two'];
+    $scope.names = [];
+    $http.get('/api/names')
+      .then(function (result) {
+        $scope.names = result.data.names;
+      });
   }
 }(angular));

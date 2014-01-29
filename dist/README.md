@@ -32,9 +32,80 @@ You can open `dist/index.html` as a local file in the browser and it should work
 ## templates
 
 The best angular practice is to have separate template files, linked to directives
-via `templateUrl` parameter, for example see [src/names/names.js] and [src/names/names.tpl.html].
+via `templateUrl` parameter, for example see [names.js](src/names/names.js)
+and [names.tpl.html](src/names/names.tpl.html).
 Usually this would mean separate Ajax call. In this example all HTML templates are
-compiled into JavaScript using grunt
+compiled into JavaScript using [grunt-html2js](https://github.com/karlgoldstein/grunt-html2js)
+plugin
+
+```js
+// compile all .tpl.html files into single module
+html2js: {
+  main: {
+    options: {
+      base: 'src',
+      module: '<%= pkg.name %>.templates'
+    },
+    src: [ 'src/**/*.tpl.html' ],
+    dest: 'tmp/<%= pkg.name %>.templates.js'
+  }
+}
+```
+
+Then concatenate the produced JavaScript file with the rest of the code, it will look
+something like this:
+
+```js
+angular.module('local-angular-development.templates', ['names/names.tpl.html']);
+angular.module("names/names.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("names/names.tpl.html",
+    "<div>\n" +
+    "  <ul>\n" +
+    "    <li ng-repeat=\"name in names\">{{name}}</li>\n" +
+    "  </ul>\n" +
+    "</div>\n" +
+    "");
+}]);
+// names directive depends on the combined template module
+var m = angular.module('names', ['local-angular-development.templates']);
+
+function directive() {
+  return {
+    restrict: 'E',
+    templateUrl: 'names/names.tpl.html',
+    scope: {},
+    controller: ['$scope', '$http', controller]
+  };
+}
+...
+```
+
+You can see the entire produced file
+[dist/local-angular-development.js](dist/local-angular-development.js)
+
+## Ajax data
+
+Frontend has nothing to show without data coming from backend.
+Just running backend to serve data is wasteful. You can easily serve mock data
+using [ngMockE2E.$httpBackend](http://docs.angularjs.org/api/ngMockE2E.$httpBackend).
+This is different from the [ngMock.$httpBackend](http://docs.angularjs.org/api/ngMock.$httpBackend)!
+
+*ngMockE2E.$httpBackend* is there to just serve data, without validating
+number of requests. One can easily put it directly inside the
+[index.html](https://github.com/bahmutov/local-angular-development/blob/master/index.html#L19)
+
+```js
+angular.module('tester', ['local-angular-development', 'ngMockE2E'])
+  .run(function ($httpBackend) {
+    $httpBackend.whenGET('/api/names')
+    .respond({
+      names: ['joe', 'john', 'adam']
+    });
+  });
+```
+
+When [names.js](src/names/names.js) makes a request for data, the backend will
+respond with the mock data.
 
 ### author
 
