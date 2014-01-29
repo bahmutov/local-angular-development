@@ -78,6 +78,19 @@ module.exports = function (grunt) {
         files: ['src/**/*.js', 'src/**/*.html', 'index.html'],
         tasks: ['build']
       }
+    },
+
+    'gh-pages': {
+      options: {
+        base: '<%= destination_dir %>'
+      },
+      src: [
+        'index.html',
+        'README.md',
+        'bower_components/angular/angular.js',
+        'bower_components/angular-mocks/angular-mocks.js',
+        'local-angular-development.js'
+      ]
     }
   };
   grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));

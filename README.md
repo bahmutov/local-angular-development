@@ -148,6 +148,30 @@ I had to include the live reload script at the end of the
 <script src="http://localhost:35729/livereload.js"></script>
 ```
 
+## live demo via gh-pages
+
+Because the entire page runs statically, you can have the `dist` folder hosted on Github
+via *gh-pages* branch right away. There is a [grunt-gh-pages](https://github.com/tschaub/grunt-gh-pages)
+and we can configure it directly against the `dist` folder
+
+```js
+'gh-pages': {
+  options: {
+    base: '<%= destination_dir %>'
+  },
+  src: [
+    'index.html',
+    'README.md',
+    'bower_components/angular/angular.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'local-angular-development.js'
+  ]
+}
+```
+
+I usually run `grunt gh-pages` manually whenever I think the demo should be
+redeployed.
+
 ### author
 
 Follow Gleb Bahmutov [@twitter](https://twitter.com/bahmutov),
