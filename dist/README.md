@@ -151,7 +151,12 @@ I had to include the live reload script at the end of the
 ## live demo via gh-pages
 
 Because the entire page runs statically, you can have the `dist` folder hosted on Github
-via *gh-pages* branch right away. There is a [grunt-gh-pages](https://github.com/tschaub/grunt-gh-pages)
+via *gh-pages* branch right away. For example, this project's live demo is at
+[http://glebbahmutov.com/local-angular-development/](http://glebbahmutov.com/local-angular-development/)
+because I have top level domain name *glebbahmutov.com* pointing at *bahmutov.github.io*.
+
+
+There is a [grunt-gh-pages](https://github.com/tschaub/grunt-gh-pages)
 and we can configure it directly against the `dist` folder
 
 ```js
