@@ -4,12 +4,15 @@ module.exports = function (grunt) {
   var plugins = require('matchdep').filterDev('grunt-*');
   plugins.forEach(grunt.loadNpmTasks);
 
-  var taskConfig = {
+  var userConfig = {
     destination_dir: 'dist',
 
     app_files: {
       js: ['src/**/*.js']
-    },
+    }
+  };
+
+  var taskConfig = {
 
     pkg: pkg,
 
@@ -20,7 +23,7 @@ module.exports = function (grunt) {
       main: {
         options: {
           base: 'src',
-          module: 'hub.templates'
+          module: '<%= pkg.name %>.templates'
         },
         src: [ 'src/**/*.tpl.html' ],
         dest: 'tmp/<%= pkg.name %>.templates.js'
@@ -77,6 +80,7 @@ module.exports = function (grunt) {
       }
     }
   };
+  grunt.initConfig(grunt.util._.extend(taskConfig, userConfig));
 
   grunt.registerTask('build', ['clean', 'html2js', 'concat', 'copy', 'uglify']);
   grunt.registerTask('default', ['build']);
