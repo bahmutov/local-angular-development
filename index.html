@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <title>Local AngularJs development</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- this page is intended to run from dist/ folder -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-mocks/angular-mocks.js"></script>
+
+  <script src="local-angular-development.js"></script>
+
+  <script>
+  angular.module('tester', ['local-angular-development', 'ngMockE2E'])
+  .run(function ($httpBackend) {
+    $httpBackend.whenGET('/api/names')
+    .respond({
+      names: ['joe', 'john', 'adam']
+    });
+  });
+  </script>
+</head>
+<body>
+  <div ng-app="tester">
+    <names></names>
+  </div>
+
+  <script src="http://localhost:35729/livereload.js"></script>
+</body>
+</html>
