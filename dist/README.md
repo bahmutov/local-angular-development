@@ -86,6 +86,19 @@ You can see the entire produced file
 ## Ajax data
 
 Frontend has nothing to show without data coming from backend.
+
+For example [names](src/names/names.js) directive asks for list of names
+
+```js
+function controller($scope, $http) {
+  $scope.names = [];
+  $http.get('/api/names')
+    .then(function (result) {
+      $scope.names = result.data.names;
+    });
+}
+```
+
 Just running backend to serve data is wasteful. You can easily serve mock data
 using [ngMockE2E.$httpBackend](http://docs.angularjs.org/api/ngMockE2E.$httpBackend).
 This is different from the [ngMock.$httpBackend](http://docs.angularjs.org/api/ngMock.$httpBackend)!
@@ -104,8 +117,36 @@ angular.module('tester', ['local-angular-development', 'ngMockE2E'])
   });
 ```
 
-When [names.js](src/names/names.js) makes a request for data, the backend will
-respond with the mock data.
+## Watch and livereload
+
+My favorite benefit from local development is the automatic browser reload on
+any source change, thanks to [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch).
+Any time any source file or main HTML page changes, grunt will rebuild the `dist` folder
+and will ask the browser to reload the page:
+
+```sh
+grunt watch
+```
+
+```js
+// Gruntfile.js
+watch: {
+  all: {
+    options: {
+      livereload: 35729
+    },
+    files: ['src/**/*.js', 'src/**/*.html', 'index.html'],
+    tasks: ['build']
+  }
+}
+```
+
+I had to include the live reload script at the end of the
+[index.html](https://github.com/bahmutov/local-angular-development/blob/master/index.html#L33)
+
+```html
+<script src="http://localhost:35729/livereload.js"></script>
+```
 
 ### author
 

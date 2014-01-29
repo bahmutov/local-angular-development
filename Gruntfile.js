@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         options: {
           livereload: 35729
         },
-        files: ['src/**/*.js', 'src/**/*.html', 'src/**/*.css', 'index.html'],
+        files: ['src/**/*.js', 'src/**/*.html', 'index.html'],
         tasks: ['build']
       }
     }

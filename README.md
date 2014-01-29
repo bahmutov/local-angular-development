@@ -119,6 +119,34 @@ angular.module('tester', ['local-angular-development', 'ngMockE2E'])
 
 ## Watch and livereload
 
+My favorite benefit from local development is the automatic browser reload on
+any source change, thanks to [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch).
+Any time any source file or main HTML page changes, grunt will rebuild the `dist` folder
+and will ask the browser to reload the page:
+
+```sh
+grunt watch
+```
+
+```js
+// Gruntfile.js
+watch: {
+  all: {
+    options: {
+      livereload: 35729
+    },
+    files: ['src/**/*.js', 'src/**/*.html', 'index.html'],
+    tasks: ['build']
+  }
+}
+```
+
+I had to include the live reload script at the end of the
+[index.html](https://github.com/bahmutov/local-angular-development/blob/master/index.html#L33)
+
+```html
+<script src="http://localhost:35729/livereload.js"></script>
+```
 
 ### author
 
