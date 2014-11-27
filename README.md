@@ -177,6 +177,11 @@ and we can configure it directly against the `dist` folder
 I usually run `grunt gh-pages` manually whenever I think the demo should be
 redeployed.
 
+## Related
+
+* [ng-wedge](https://github.com/bahmutov/ng-wedge) - intercept and mock HTTP calls on a live website WITHOUT
+using mock $httpBackend or modifying the website or installing extensions.
+
 ### author
 
 Follow Gleb Bahmutov [@twitter](https://twitter.com/bahmutov),
