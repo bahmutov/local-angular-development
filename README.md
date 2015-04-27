@@ -117,6 +117,9 @@ angular.module('tester', ['local-angular-development', 'ngMockE2E'])
   });
 ```
 
+If you need to delay and slow down mock responses, see 
+[Infinite fake data](https://github.com/bahmutov/infinite-fake-data#slowing-down-mock-respones).
+
 ## Watch and livereload
 
 My favorite benefit from local development is the automatic browser reload on
