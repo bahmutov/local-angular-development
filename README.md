@@ -4,6 +4,9 @@ You do not need a server to do local Angular development.
 Simple static file with local vendor libraries (like angularjs itself),
 plus compiled templates, plus mock http E2E backend is enough.
 
+Main points described in [this](http://glebbahmutov.com/blog/local-angular-development/)
+blog post.
+
 ## installation
 
 You can run the example without any tools, but git:
@@ -189,3 +192,4 @@ using mock $httpBackend or modifying the website or installing extensions.
 
 Follow Gleb Bahmutov [@twitter](https://twitter.com/bahmutov),
 see his projects at [glebbahmutov.com](http://glebbahmutov.com/)
+or read the [blog](http://glebbahmutov.com/blog/).
